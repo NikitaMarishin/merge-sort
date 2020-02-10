@@ -60,14 +60,16 @@ public class ConfiguratorImp<T> implements Configurator<T>{
         fileSorter.setFileMerger(fileMerger);
         fileSorter.setSizeLimit(100_000_000);
 
+        reverser.setFileDivider(fileDivider);
+        reverser.setTempFilesFabric(tempFilesFabric);
+        reverser.setSizeLimit(100_000_00);
+
         manager.setFileMerger(fileMerger);
         manager.setFileSorter(fileSorter);
         manager.setChecker(checker);
         manager.setTempFilesFabric(tempFilesFabric);
+        manager.setReverser(reverser);
 
-        reverser.setFileDivider(fileDivider);
-        reverser.setTempFilesFabric(tempFilesFabric);
-        reverser.setSizeLimit(100_000_00);
     }
 
     @Override

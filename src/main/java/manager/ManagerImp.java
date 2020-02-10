@@ -3,6 +3,7 @@ package manager;
 import checker.Checker;
 import file_sorter.FileSorter;
 import filemerger.FileMerger;
+import reverser.Reverser;
 import temp_files_fabric.TempFilesFabric;
 import java.io.File;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class ManagerImp<T> implements Manager<T>{
     private List<File> inputFiles;
     private File outFile;
     private TempFilesFabric tempFilesFabric;
+    private Reverser reverser;
 
     public void start() {
 
@@ -31,7 +33,12 @@ public class ManagerImp<T> implements Manager<T>{
             if (!checker.isOpened() || !checker.isNotEmpty() || !checker.isTyped()) {
                 continue;
             }
-            if (!checker.isOrdered() || !checker.isSorted()) {
+            if (checker.isSorted() && !checker.isOrdered()) {
+                File temp = tempFilesFabric.getNewTempFile();
+                reverser.reverse(file, temp);
+                resultList.add(temp);
+            }
+            if (!checker.isSorted()) {
                 File temp = tempFilesFabric.getNewTempFile();
                 fileSorter.sort(file, temp);
                 resultList.add(temp);
@@ -41,8 +48,6 @@ public class ManagerImp<T> implements Manager<T>{
         }
         return resultList;
     }
-
-
 
     @Override
     public void setFileSorter(FileSorter<T> fileSorter) {
@@ -72,5 +77,10 @@ public class ManagerImp<T> implements Manager<T>{
     @Override
     public void setTempFilesFabric(TempFilesFabric tempFilesFabric) {
         this.tempFilesFabric = tempFilesFabric;
+    }
+
+    @Override
+    public void setReverser(Reverser reverser) {
+        this.reverser = reverser;
     }
 }
