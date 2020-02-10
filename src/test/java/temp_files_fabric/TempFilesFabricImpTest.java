@@ -1,7 +1,6 @@
 package temp_files_fabric;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
