@@ -16,6 +16,7 @@ public class ReverserImp implements Reverser{
     private TempFilesFabric tempFilesFabric;
     private long sizeLimit;
 
+    @Override
     public void reverse(File fileToReverse, File outFile) {
 
         if(fileToReverse.length() < sizeLimit) {
@@ -82,15 +83,17 @@ public class ReverserImp implements Reverser{
         }
     }
 
-
+    @Override
     public void setFileDivider(FileDivider fileDivider) {
         this.fileDivider = fileDivider;
     }
 
+    @Override
     public void setTempFilesFabric(TempFilesFabric tempFilesFabric) {
         this.tempFilesFabric = tempFilesFabric;
     }
 
+    @Override
     public void setSizeLimit(long sizeLimit) {
         this.sizeLimit = sizeLimit;
     }
