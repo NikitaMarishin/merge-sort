@@ -1,3 +1,5 @@
+package list_merge_sorter;
+
 import list_merge_sorter.ListMergeSorterImp;
 import org.junit.Test;
 
