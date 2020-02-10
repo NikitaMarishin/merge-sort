@@ -7,6 +7,7 @@ import filemerger.FileMerger;
 import list_merge_sorter.ListMergeSorter;
 import manager.Manager;
 import parser.Parser;
+import reverser.Reverser;
 import temp_files_fabric.TempFilesFabric;
 
 import java.util.Comparator;
@@ -31,4 +32,6 @@ public interface Configurator<T> {
     Checker<T> getChecker();
 
     Manager<T> getManager();
+
+    Reverser getReverser();
 }

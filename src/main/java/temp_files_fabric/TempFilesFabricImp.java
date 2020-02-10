@@ -17,9 +17,8 @@ public class TempFilesFabricImp implements TempFilesFabric{
     @Override
     public File getNewTempFile() {
         tempNumber++;
-        if(".".equals(directory.getPath())) {
-
-        }
-        return new File(directory.getPath() + "/" + "temp" + tempNumber + ".txt");
+        File result = new File(directory.getPath() + "/" + "temp" + tempNumber + ".txt");
+        result.deleteOnExit();
+        return result;
     }
 }

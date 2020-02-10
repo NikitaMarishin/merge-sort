@@ -13,6 +13,8 @@ import list_merge_sorter.ListMergeSorterImp;
 import manager.Manager;
 import manager.ManagerImp;
 import parser.Parser;
+import reverser.Reverser;
+import reverser.ReverserImp;
 import temp_files_fabric.TempFilesFabric;
 import temp_files_fabric.TempFilesFabricImp;
 
@@ -29,6 +31,7 @@ public class ConfiguratorImp<T> implements Configurator<T>{
     private ListMergeSorter<T> listMergeSorter = new ListMergeSorterImp<>();
     private Checker<T> checker = new CheckerImp<>();
     private Manager<T> manager = new ManagerImp<>();
+    private Reverser reverser = new ReverserImp();
 
     @Override
     public void config(Comparator<T> comparator, Parser<T> parser) {
@@ -57,10 +60,16 @@ public class ConfiguratorImp<T> implements Configurator<T>{
         fileSorter.setFileMerger(fileMerger);
         fileSorter.setSizeLimit(100_000_000);
 
+        reverser.setFileDivider(fileDivider);
+        reverser.setTempFilesFabric(tempFilesFabric);
+        reverser.setSizeLimit(100_000_00);
+
         manager.setFileMerger(fileMerger);
         manager.setFileSorter(fileSorter);
         manager.setChecker(checker);
         manager.setTempFilesFabric(tempFilesFabric);
+        manager.setReverser(reverser);
+
     }
 
     @Override
@@ -106,5 +115,10 @@ public class ConfiguratorImp<T> implements Configurator<T>{
     @Override
     public Manager<T> getManager() {
         return manager;
+    }
+
+    @Override
+    public Reverser getReverser() {
+        return reverser;
     }
 }

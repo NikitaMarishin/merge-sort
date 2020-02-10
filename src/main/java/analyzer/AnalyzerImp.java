@@ -26,7 +26,7 @@ public class AnalyzerImp implements Analyzer {
         int outFileIndex = 2;
         int inputFilesIndex = 3;
 
-        if (args.length < ascendingIndex) {
+        if (args.length - 1  < ascendingIndex) {
             System.out.println("Type parameter is required");
             return false;
         }
@@ -42,7 +42,7 @@ public class AnalyzerImp implements Analyzer {
             inputFilesIndex--;
         }
 
-        if(args.length < stringIndex) {
+        if(args.length - 1  < stringIndex) {
             System.out.println("Type parameter is required");
             return false;
         }
@@ -55,13 +55,13 @@ public class AnalyzerImp implements Analyzer {
             return false;
         }
 
-        if(args.length < outFileIndex) {
+        if(args.length - 1 < outFileIndex) {
             System.out.println("Out file is required");
             return false;
         }
         outFile = new File(args[outFileIndex]);
 
-        if(args.length < inputFilesIndex) {
+        if(args.length - 1 < inputFilesIndex) {
             System.out.println("At least one input file is required");
             return false;
         }

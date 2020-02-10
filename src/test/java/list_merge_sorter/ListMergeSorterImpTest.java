@@ -1,6 +1,8 @@
-import list_merge_sorter.ListMergeSorterImp;
+package list_merge_sorter;
+
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,6 +44,35 @@ public class ListMergeSorterImpTest {
 
         sorter.setComparator(String::compareTo);
         sorter.sort(listToSort);
+
+        assertEquals(expected, listToSort);
+    }
+
+    @Test
+    public void test4() {
+        ListMergeSorterImp<Integer> sorter = new ListMergeSorterImp<>();
+
+        List<Integer> listToSort = new ArrayList<>();
+
+        sorter.setComparator((x, y) -> - Integer.compare(x, y));
+
+        sorter.sort(listToSort);
+
+        assertEquals(new ArrayList<Integer>(), listToSort);
+    }
+
+    @Test
+    public void test5() {
+        ListMergeSorterImp<Integer> sorter = new ListMergeSorterImp<>();
+
+        List<Integer> listToSort = new ArrayList<>();
+        listToSort.add(189);
+
+        sorter.setComparator((x, y) -> - Integer.compare(x, y));
+
+        sorter.sort(listToSort);
+
+        List<Integer> expected = Arrays.asList(189);
 
         assertEquals(expected, listToSort);
     }
