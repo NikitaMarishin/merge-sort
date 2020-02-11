@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class TempFilesFabricImpTest {
+public class TempFilesFabricTest {
     private static List<File> tempFilesList = new ArrayList<>();
 
     @BeforeClass
@@ -23,7 +23,7 @@ public class TempFilesFabricImpTest {
 
     @Test
     public void test1() {
-        TempFilesFabric tempFilesFabric = new TempFilesFabricImp();
+        TempFilesFabric tempFilesFabric = new TempFilesFabric();
         tempFilesFabric.setTempDirectory(new File("./tmp/"));
 
         File tempFile = tempFilesFabric.getNewTempFile();
@@ -33,7 +33,7 @@ public class TempFilesFabricImpTest {
 
     @Test
     public void test2() {
-        TempFilesFabric tempFilesFabric = new TempFilesFabricImp();
+        TempFilesFabric tempFilesFabric = new TempFilesFabric();
         tempFilesFabric.setTempDirectory(new File("./tmp/"));
 
         File tempFile = tempFilesFabric.getNewTempFile();
@@ -43,7 +43,7 @@ public class TempFilesFabricImpTest {
 
     @Test
     public void test3() {
-        TempFilesFabric tempFilesFabric = new TempFilesFabricImp();
+        TempFilesFabric tempFilesFabric = new TempFilesFabric();
 
         File tempFile = tempFilesFabric.getNewTempFile();
         tempFilesList.add(tempFile);

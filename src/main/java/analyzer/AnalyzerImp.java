@@ -1,7 +1,6 @@
 package analyzer;
 
 import configurator.Configurator;
-import configurator.ConfiguratorImp;
 import manager.Manager;
 import parser.Parser;
 import parser.ParserInt;
@@ -92,7 +91,7 @@ public class AnalyzerImp implements Analyzer {
             } else {
                 comparator = comparatorString.reversed();
             }
-            Configurator<String> configurator = new ConfiguratorImp<String>();
+            Configurator<String> configurator = new Configurator<String>();
             configurator.config(comparator, parser);
             Manager manager = configurator.getManager();
             manager.setInputFiles(inputFiles);
@@ -107,7 +106,7 @@ public class AnalyzerImp implements Analyzer {
             } else {
                 comparator = comparatorInteger.reversed();
             }
-            Configurator configurator = new ConfiguratorImp<Integer>();
+            Configurator configurator = new Configurator<Integer>();
             configurator.config(comparator, parser);
             Manager manager = configurator.getManager();
             manager.setInputFiles(inputFiles);

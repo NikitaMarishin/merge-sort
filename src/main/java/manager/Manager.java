@@ -5,24 +5,75 @@ import file_sorter.FileSorter;
 import filemerger.FileMerger;
 import reverser.Reverser;
 import temp_files_fabric.TempFilesFabric;
-
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface Manager<T> {
-    void setFileSorter(FileSorter<T> fileSorter);
+public class Manager<T> {
 
-    void setFileMerger(FileMerger<T> fileMerger);
+    private Checker<T> checker;
+    private FileSorter<T> fileSorter;
+    private FileMerger<T> fileMerger;
+    private List<File> inputFiles;
+    private File outFile;
+    private TempFilesFabric tempFilesFabric;
+    private Reverser reverser;
 
-    void setChecker(Checker<T> checker);
+    public void start() {
 
-    void start();
+        inputFiles = filesPreMerge();
 
-    void setInputFiles(List<File> inputFiles);
+        fileMerger.merge(inputFiles, outFile);
+    }
 
-    void setOutFile(File outFile);
+    private List<File> filesPreMerge() {
+        List<File> resultList = new ArrayList<>();
+        for (File file: inputFiles) {
+            checker.check(file);
+            if (!checker.isOpened() || !checker.isNotEmpty() || !checker.isTyped()) {
+                continue;
+            }
+            if (checker.isSorted() && !checker.isOrdered()) {
+                File temp = tempFilesFabric.getNewTempFile();
+                reverser.reverse(file, temp);
+                resultList.add(temp);
+            }
+            if (!checker.isSorted()) {
+                File temp = tempFilesFabric.getNewTempFile();
+                fileSorter.sort(file, temp);
+                resultList.add(temp);
+            } else {
+                resultList.add(file);
+            }
+        }
+        return resultList;
+    }
 
-    void setTempFilesFabric(TempFilesFabric tempFilesFabric);
+    public void setFileSorter(FileSorter<T> fileSorter) {
+        this.fileSorter = fileSorter;
+    }
 
-    void setReverser(Reverser reverser);
+    public void setFileMerger(FileMerger<T> fileMerger) {
+        this.fileMerger = fileMerger;
+    }
+
+    public void setChecker(Checker<T> checker) {
+        this.checker = checker;
+    }
+
+    public void setInputFiles(List<File> inputFiles) {
+        this.inputFiles = inputFiles;
+    }
+
+    public void setOutFile(File outFile) {
+        this.outFile = outFile;
+    }
+
+    public void setTempFilesFabric(TempFilesFabric tempFilesFabric) {
+        this.tempFilesFabric = tempFilesFabric;
+    }
+
+    public void setReverser(Reverser reverser) {
+        this.reverser = reverser;
+    }
 }

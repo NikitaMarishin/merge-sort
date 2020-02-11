@@ -8,10 +8,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ListMergeSorterImpTest {
+public class ListMergeSorterTest {
     @Test
     public void test1() {
-        ListMergeSorterImp<Integer> sorter = new ListMergeSorterImp<>();
+        ListMergeSorter<Integer> sorter = new ListMergeSorter<>();
 
         List<Integer> listToSort = Arrays.asList(5, 2, 8, -100, 180, 1, 0);
         List<Integer> expected = Arrays.asList(-100, 0, 1, 2, 5, 8, 180);
@@ -24,7 +24,7 @@ public class ListMergeSorterImpTest {
 
     @Test
     public void test2() {
-        ListMergeSorterImp<Integer> sorter = new ListMergeSorterImp<>();
+        ListMergeSorter<Integer> sorter = new ListMergeSorter<>();
 
         List<Integer> listToSort = Arrays.asList(5, 2, 8, -100, 180, 1, 0);
         List<Integer> expected = Arrays.asList(180, 8, 5, 2, 1, 0, -100);
@@ -37,7 +37,7 @@ public class ListMergeSorterImpTest {
 
     @Test
     public void test3() {
-        ListMergeSorterImp<String> sorter = new ListMergeSorterImp<>();
+        ListMergeSorter<String> sorter = new ListMergeSorter<>();
 
         List<String> listToSort = Arrays.asList("aca", "aab", "fly", "rabbit", "zzz", "dictionary", "love");
         List<String> expected = Arrays.asList("aab", "aca", "dictionary", "fly", "love", "rabbit", "zzz");
@@ -50,7 +50,7 @@ public class ListMergeSorterImpTest {
 
     @Test
     public void test4() {
-        ListMergeSorterImp<Integer> sorter = new ListMergeSorterImp<>();
+        ListMergeSorter<Integer> sorter = new ListMergeSorter<>();
 
         List<Integer> listToSort = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class ListMergeSorterImpTest {
 
     @Test
     public void test5() {
-        ListMergeSorterImp<Integer> sorter = new ListMergeSorterImp<>();
+        ListMergeSorter<Integer> sorter = new ListMergeSorter<>();
 
         List<Integer> listToSort = new ArrayList<>();
         listToSort.add(189);

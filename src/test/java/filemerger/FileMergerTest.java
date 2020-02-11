@@ -11,7 +11,7 @@ import java.util.Comparator;
 
 import static org.junit.Assert.*;
 
-public class FileMergerImpTest {
+public class FileMergerTest {
     Comparator<Integer> comparatorInt = Integer::compareTo;
     Comparator<String> comparatorString = String::compareTo;
     Parser<Integer> parserInt = new ParserInt();
