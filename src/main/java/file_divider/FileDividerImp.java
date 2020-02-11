@@ -3,12 +3,8 @@ package file_divider;
 import temp_files_fabric.TempFilesFabric;
 import temp_files_fabric.TempFilesFabricImp;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.List;
-import java.util.Scanner;
 
 public class FileDividerImp implements FileDivider{
     private long maxSize = 1_000_000;
@@ -16,22 +12,22 @@ public class FileDividerImp implements FileDivider{
 
     @Override
     public void divide(File fileToDivide, List<File> dividedFiles) {
-
-        try(Scanner scanner = new Scanner(fileToDivide)) {
-            while(scanner.hasNextLine()) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(fileToDivide))) {
+            String tempLine = null;
+            do {
                 File dividedFile = tempFilesFabric.getNewTempFile();
                 dividedFiles.add(dividedFile);
-                try(PrintWriter printWriter = new PrintWriter(dividedFile)){
-                    for(long i = 0; i < maxSize && scanner.hasNextLine(); i++) {
-                        printWriter.println(scanner.nextLine());
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(dividedFile))) {
+                    for (long i = 0; i < maxSize && (tempLine = reader.readLine()) != null; i++) {
+                        writer.write(tempLine);
+                        writer.newLine();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
+            } while (tempLine != null);
 
-
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
