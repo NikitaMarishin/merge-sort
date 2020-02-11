@@ -8,7 +8,7 @@ import java.util.Comparator;
 public interface Checker<T> {
     void check(File fileToCheck);
 
-    void setComparator(Comparator comparator);
+    void setComparator(Comparator<T> comparator);
 
     void setParser(Parser<T> parser);
 

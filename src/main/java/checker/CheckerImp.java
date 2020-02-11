@@ -2,10 +2,8 @@ package checker;
 
 import parser.Parser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class CheckerImp<T> implements Checker<T>{
     private boolean notEmpty;
@@ -26,27 +24,28 @@ public class CheckerImp<T> implements Checker<T>{
         boolean ascending = true;
         boolean descending = true;
 
-        try (Scanner scanner = new Scanner(fileToCheck)) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileToCheck))) {
             opened = true;
 
             T prev;
+            String tempLine;
 
-            if(!scanner.hasNextLine()) {
+            if ((tempLine = reader.readLine()) == null) {
                 notEmpty = false;
                 return;
             }
 
             try {
-                prev = parser.parse(scanner.nextLine());
+                prev = parser.parse(tempLine);
             } catch (NumberFormatException e) {
                 typed = false;
                 return;
             }
 
-            while (scanner.hasNextLine()) {
+            while ((tempLine = reader.readLine()) != null) {
                 T next;
                 try {
-                    next = parser.parse(scanner.nextLine());
+                    next = parser.parse(tempLine);
                 } catch (NumberFormatException e) {
                     typed = false;
                     return;
@@ -62,8 +61,7 @@ public class CheckerImp<T> implements Checker<T>{
                 prev = next;
             }
 
-        } catch (FileNotFoundException e) {
-            opened = false;
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -76,7 +74,7 @@ public class CheckerImp<T> implements Checker<T>{
 
 
     @Override
-    public void setComparator(Comparator comparator) {
+    public void setComparator(Comparator<T> comparator) {
         this.comparator = comparator;
     }
 
