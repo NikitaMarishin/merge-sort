@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 
 public class TempFilesFabricTest {
     private static List<File> tempFilesList = new ArrayList<>();
+    private static TempFilesFabric tempFilesFabric = new TempFilesFabric();
 
     @BeforeClass
     public static void initTempDirectory() {
@@ -24,7 +25,6 @@ public class TempFilesFabricTest {
 
     @Test
     public void test1() {
-        TempFilesFabric tempFilesFabric = new TempFilesFabric();
         tempFilesFabric.setTempDirectory(new File("./tmp/"));
 
         File tempFile = tempFilesFabric.getNewTempFile();
@@ -34,7 +34,6 @@ public class TempFilesFabricTest {
 
     @Test
     public void test2() {
-        TempFilesFabric tempFilesFabric = new TempFilesFabric();
         tempFilesFabric.setTempDirectory(new File("./tmp/"));
 
         File tempFile = tempFilesFabric.getNewTempFile();
@@ -44,8 +43,7 @@ public class TempFilesFabricTest {
 
     @Test
     public void test3() {
-        TempFilesFabric tempFilesFabric = new TempFilesFabric();
-
+        tempFilesFabric.setTempDirectory(new File("./"));
         File tempFile = tempFilesFabric.getNewTempFile();
         tempFilesList.add(tempFile);
 

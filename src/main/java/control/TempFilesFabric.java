@@ -3,14 +3,15 @@ package control;
 import java.io.File;
 
 public class TempFilesFabric{
-    private static long tempNumber = 0;
+    private long tempNumber = 0;
     private File directory = new File(".");
 
 
     public void setTempDirectory(File directory) {
-        if (directory.isDirectory()) {
-            this.directory = directory;
+        if (!directory.isDirectory()) {
+            directory.mkdir();
         }
+        this.directory = directory;
     }
 
     public File getNewTempFile() {
