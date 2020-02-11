@@ -55,8 +55,6 @@ public class FileReverser {
 
             reverseInRam(dividedFileList.get(i), sortedPart);
 
-            sortedPart.delete();
-
             dividedFileList.get(i).delete();
 
             dividedFileList.set(i, sortedPart);
@@ -68,7 +66,9 @@ public class FileReverser {
 
     private void mergeFiles(List<File> dividedFileList, File outFile) {
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
-            for(File file: dividedFileList) {
+            File file;
+            for(int i = 0; i < dividedFileList.size(); i++) {
+                file = dividedFileList.get(dividedFileList.size() - i - 1);
                 try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
                     String tempLine;
                     while ((tempLine = reader.readLine()) != null) {
