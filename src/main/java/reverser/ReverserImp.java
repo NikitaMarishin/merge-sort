@@ -3,9 +3,7 @@ package reverser;
 import file_divider.FileDivider;
 import temp_files_fabric.TempFilesFabric;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,19 +27,23 @@ public class ReverserImp implements Reverser{
     private void reverseInRam (File fileToReverse,  File outFile) {
         List<String> dataInRam = new ArrayList<>();
 
-        try (Scanner scanner = new Scanner(fileToReverse)) {
-            while (scanner.hasNextLine()) {
-                dataInRam.add(scanner.nextLine());
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileToReverse))) {
+            String tempLine;
+            while ((tempLine = reader.readLine()) != null) {
+                dataInRam.add(tempLine);
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         Collections.reverse(dataInRam);
 
-        try(PrintWriter printWriter = new PrintWriter(outFile)) {
-            dataInRam.forEach(printWriter::println);
-        } catch (FileNotFoundException e) {
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
+            for (String data: dataInRam) {
+                writer.write(data);
+                writer.newLine();
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -68,17 +70,20 @@ public class ReverserImp implements Reverser{
     }
 
     private void mergeFiles(List<File> dividedFileList, File outFile) {
-        try(PrintWriter printWriter = new PrintWriter(outFile)) {
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
             for(File file: dividedFileList) {
-                try(Scanner scanner = new Scanner(outFile)) {
-                    while (scanner.hasNextLine()) {
-                        printWriter.println(scanner.nextLine());
+                try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                    String tempLine;
+                    while ((tempLine = reader.readLine()) != null) {
+                        writer.write(tempLine);
+                        writer.newLine();
                     }
-                } catch (FileNotFoundException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
