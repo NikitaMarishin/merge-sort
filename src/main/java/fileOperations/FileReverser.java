@@ -10,7 +10,7 @@ import java.util.List;
 public class FileReverser {
     private FileDivider fileDivider;
     private TempFilesFabric tempFilesFabric;
-    private long sizeLimit;
+    private long sizeLimit = 100_000_000 * 8;
 
     public void reverse(File fileToReverse, File outFile) {
 

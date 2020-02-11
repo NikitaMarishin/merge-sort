@@ -9,7 +9,7 @@ import java.util.*;
 
 public class FileSorter<T> {
 
-    private long sizeLimit = 100_000_000;
+    private long sizeLimit = 100_000_000 * 8;
 
     private Comparator<T> comparator;
     private Parser<T> parser;

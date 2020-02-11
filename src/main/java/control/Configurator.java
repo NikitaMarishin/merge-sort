@@ -34,7 +34,7 @@ public class Configurator<T> {
         sortedFilesMerger.setTempFilesFabric(tempFilesFabric);
 
         fileDivider.setTempFilesFabric(tempFilesFabric);
-        fileDivider.setMaxSize(10_000_000);
+        fileDivider.setMaxSize(1_000_000);
 
         listMergeSorter.setComparator(comparator);
 
@@ -47,11 +47,11 @@ public class Configurator<T> {
         fileSorter.setTempFilesFabric(tempFilesFabric);
         fileSorter.setListMergeSorter(listMergeSorter);
         fileSorter.setSortedFilesMerger(sortedFilesMerger);
-        fileSorter.setSizeLimit(100_000_000);
+        fileSorter.setSizeLimit(100_000_000 * 8);
 
         fileReverser.setFileDivider(fileDivider);
         fileReverser.setTempFilesFabric(tempFilesFabric);
-        fileReverser.setSizeLimit(100_000_00);
+        fileReverser.setSizeLimit(100_000_00 * 8);
 
         manager.setSortedFilesMerger(sortedFilesMerger);
         manager.setFileSorter(fileSorter);
