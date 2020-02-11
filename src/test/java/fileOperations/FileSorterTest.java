@@ -110,5 +110,48 @@ public class FileSorterTest {
         }
     }
 
+    @Test
+    public void test4() {
+        Configurator<Integer> configurator = new Configurator<>();
+        configurator.config(Integer::compareTo, new ParserInt());
+        TempFilesFabric tempFilesFabric = configurator.getTempFilesFabric();
+        FileListConverter<Integer> fileListConverter = new FileListConverter<>();
+        fileListConverter.setParser(new ParserInt());
+
+        List<Integer> unsortedList = new ArrayList<>();
+
+        Random random = new Random();
+
+        for (int i = 0; i < 1_000_000; i++) {
+            unsortedList.add(random.nextInt());
+        }
+
+        File unsortedFile = tempFilesFabric.getNewTempFile();
+        fileListConverter.listToFile(unsortedList, unsortedFile);
+
+        List<Integer> sortedList = new ArrayList<>(unsortedList);
+        Collections.sort(sortedList);
+        File expected = tempFilesFabric.getNewTempFile();
+        fileListConverter.listToFile(sortedList, expected);
+
+        File resultFile = tempFilesFabric.getNewTempFile();
+
+        FileSorter<Integer> fileSorter = configurator.getFileSorter();
+        fileSorter.setSizeLimit(10000);
+
+        FileDivider fileDivider = configurator.getFileDivider();
+        fileDivider.setMaxSize(10000);
+
+        fileSorter.sort(unsortedFile, resultFile);
+
+        try {
+            assertEquals("The files differ!",
+                    FileUtils.readFileToString(expected, "utf-8"),
+                    FileUtils.readFileToString(resultFile, "utf-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

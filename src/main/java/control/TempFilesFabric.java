@@ -1,9 +1,10 @@
 package control;
 
 import java.io.File;
+import java.util.Random;
 
 public class TempFilesFabric{
-    private long tempNumber = 0;
+    private static long tempNumber = 0;
     private File directory = new File(".");
 
 
@@ -16,7 +17,8 @@ public class TempFilesFabric{
 
     public File getNewTempFile() {
         tempNumber++;
-        File result = new File(directory.getPath() + "/" + "temp" + tempNumber + ".txt");
+        Random random = new Random();
+        File result = new File(directory.getPath() + "/" + "temp" + tempNumber + "-" + random.nextInt(100000) + ".txt");
         result.deleteOnExit();
         return result;
     }
