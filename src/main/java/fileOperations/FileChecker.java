@@ -16,10 +16,7 @@ public class FileChecker<T>{
 
 
     public void check(File fileToCheck) {
-        if(fileToCheck.length() == 0) {
-            notEmpty = false;
-            return;
-        }
+
 
         boolean ascending = true;
         boolean descending = true;
@@ -34,6 +31,8 @@ public class FileChecker<T>{
                 notEmpty = false;
                 return;
             }
+
+            notEmpty = true;
 
             try {
                 prev = parser.parse(tempLine);
@@ -62,12 +61,12 @@ public class FileChecker<T>{
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            opened = false;
+            notEmpty = false;
         }
 
         sorted = ascending || descending;
         ordered = ascending;
-        notEmpty = true;
         typed = true;
     }
 
