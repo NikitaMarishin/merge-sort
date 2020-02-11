@@ -58,7 +58,6 @@ public class SortedFilesMerger<T> {
             tempLine1 = reader1.readLine();
             tempLine2 = reader2.readLine();
 
-
             while (tempLine1 != null && tempLine2 != null) {
                 buffer1 = parser.parse(tempLine1);
                 buffer2 = parser.parse(tempLine2);
@@ -68,8 +67,6 @@ public class SortedFilesMerger<T> {
                     writer.newLine();
 
                     if  ((tempLine1 = reader1.readLine()) == null){
-                        writer.write(tempLine2);
-                        writer.newLine();
                         break;
                     }
                 } else {
@@ -77,11 +74,19 @@ public class SortedFilesMerger<T> {
                     writer.newLine();
 
                     if ((tempLine2 = reader2.readLine()) == null) {
-                        writer.write(tempLine1);
-                        writer.newLine();
                         break;
                     }
                 }
+            }
+
+            if (tempLine1 != null) {
+                writer.write(tempLine1);
+                writer.newLine();
+            }
+
+            if (tempLine2 != null) {
+                writer.write(tempLine2);
+                writer.newLine();
             }
 
             while ((tempLine1 = reader1.readLine()) != null) {
