@@ -37,6 +37,7 @@ public class Manager<T> {
                 File temp = tempFilesFabric.getNewTempFile();
                 fileReverser.reverse(file, temp);
                 resultList.add(temp);
+                continue;
             }
             if (!fileChecker.isSorted()) {
                 File temp = tempFilesFabric.getNewTempFile();
