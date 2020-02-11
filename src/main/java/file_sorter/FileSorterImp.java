@@ -6,9 +6,7 @@ import list_merge_sorter.ListMergeSorter;
 import parser.Parser;
 import temp_files_fabric.TempFilesFabric;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 
 public class FileSorterImp<T> implements FileSorter<T>{
@@ -49,19 +47,26 @@ public class FileSorterImp<T> implements FileSorter<T>{
 
     private void sortFileInMemory(File fileToSort, File sortedFile) {
         List<T> dataInRam = new ArrayList<>();
-        try (Scanner scanner = new Scanner(fileToSort)) {
-            while (scanner.hasNextLine()) {
-                dataInRam.add(parser.parse(scanner.nextLine()));
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileToSort))) {
+            String tempLine;
+            while ((tempLine = reader.readLine()) != null) {
+                dataInRam.add(parser.parse(tempLine));
             }
-        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         listMergeSorter.sort(dataInRam);
 
-        try (PrintWriter printWriter = new PrintWriter(sortedFile)) {
-            dataInRam.forEach(printWriter::println);
-        } catch (FileNotFoundException e) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(sortedFile))) {
+
+            for(T data: dataInRam) {
+                writer.write(data.toString());
+                writer.newLine();
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
