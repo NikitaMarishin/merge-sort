@@ -4,9 +4,7 @@ import parser.Parser;
 import temp_files_fabric.TempFilesFabric;
 import temp_files_fabric.TempFilesFabricImp;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -50,40 +48,56 @@ public class FileMergerImp<T> implements FileMerger<T> {
 
     private void mergeTwoFiles(File file1, File file2, File outFile) {
 
-        try (Scanner scanner1 = new Scanner(file1); Scanner scanner2 = new Scanner(file2); PrintWriter printWriter = new PrintWriter(outFile)) {
+        try (BufferedReader reader1 = new BufferedReader(new FileReader(file1));
+             BufferedReader reader2 = new BufferedReader(new FileReader(file2));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
 
-            T buffer1 = parser.parse(scanner1.nextLine());
-            T buffer2 = parser.parse(scanner2.nextLine());
+            String tempLine1;
+            String tempLine2;
 
-            while (true) {
+            T buffer1;
+            T buffer2;
+
+            tempLine1 = reader1.readLine();
+            tempLine2 = reader2.readLine();
+
+
+            while (tempLine1 != null && tempLine2 != null) {
+                buffer1 = parser.parse(tempLine1);
+                buffer2 = parser.parse(tempLine2);
+
                 if (comparator.compare(buffer1, buffer2) <= 0) {
-                    printWriter.println(buffer1);
-                    if (scanner1.hasNextLine()) {
-                        buffer1 = parser.parse(scanner1.nextLine());
-                    } else {
-                        printWriter.println(buffer2);
+                    writer.write(tempLine1);
+                    writer.newLine();
+
+                    if  ((tempLine1 = reader1.readLine()) == null){
+                        writer.write(tempLine2);
+                        writer.newLine();
                         break;
                     }
                 } else {
-                    printWriter.println(buffer2);
-                    if (scanner2.hasNextLine()) {
-                        buffer2 = parser.parse(scanner2.nextLine());
-                    } else {
-                        printWriter.println(buffer1);
+                    writer.write(tempLine2);
+                    writer.newLine();
+
+                    if ((tempLine2 = reader2.readLine()) == null) {
+                        writer.write(tempLine1);
+                        writer.newLine();
                         break;
                     }
                 }
             }
 
-            while (scanner1.hasNextLine()) {
-                printWriter.println(scanner1.nextLine());
+            while ((tempLine1 = reader1.readLine()) != null) {
+                writer.write(tempLine1);
+                writer.newLine();
             }
 
-            while (scanner2.hasNextLine()) {
-                printWriter.println(scanner2.nextLine());
+            while ((tempLine2 = reader2.readLine()) != null) {
+                writer.write((tempLine2));
+                writer.newLine();
             }
 
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
