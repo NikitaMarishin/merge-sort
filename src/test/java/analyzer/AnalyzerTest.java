@@ -7,14 +7,14 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class AnalyzerImpTest {
+public class AnalyzerTest {
 
     @Test
     public void test1() {
         String[] args = new String[] {"-a", "-s", "out.txt", "in1.txt", "in2.txt", "in3.txt"};
         List<File> testInputList = new ArrayList<>();
 
-        Analyzer analyzer = new AnalyzerImp();
+        Analyzer analyzer = new Analyzer();
 
         testInputList.add(new File("in1.txt"));
         testInputList.add(new File("in2.txt"));
@@ -39,7 +39,7 @@ public class AnalyzerImpTest {
         testInputList.add(new File("in2.txt"));
         testInputList.add(new File("in3.txt"));
 
-        Analyzer analyzer = new AnalyzerImp();
+        Analyzer analyzer = new Analyzer();
 
         analyzer.analyze(args);
 
@@ -58,7 +58,7 @@ public class AnalyzerImpTest {
 
         testInputList.add(new File("in1.txt"));
 
-        Analyzer analyzer = new AnalyzerImp();
+        Analyzer analyzer = new Analyzer();
 
         analyzer.analyze(args);
 
@@ -77,7 +77,7 @@ public class AnalyzerImpTest {
 
         testInputList.add(new File("in1.txt"));
 
-        Analyzer analyzer = new AnalyzerImp();
+        Analyzer analyzer = new Analyzer();
 
         analyzer.analyze(args);
 
@@ -94,7 +94,7 @@ public class AnalyzerImpTest {
         String[] args = new String[] {"-i"};
         List<File> testInputList = new ArrayList<>();
 
-        Analyzer analyzer = new AnalyzerImp();
+        Analyzer analyzer = new Analyzer();
 
         assertFalse(analyzer.analyze(args));
     }
@@ -104,7 +104,7 @@ public class AnalyzerImpTest {
         String[] args = new String[] {};
         List<File> testInputList = new ArrayList<>();
 
-        Analyzer analyzer = new AnalyzerImp();
+        Analyzer analyzer = new Analyzer();
 
         assertFalse(analyzer.analyze(args));
     }
@@ -114,7 +114,7 @@ public class AnalyzerImpTest {
         String[] args = new String[] {"-i", "out.txt"};
         List<File> testInputList = new ArrayList<>();
 
-        Analyzer analyzer = new AnalyzerImp();
+        Analyzer analyzer = new Analyzer();
 
         assertFalse(analyzer.analyze(args));
     }
@@ -124,7 +124,7 @@ public class AnalyzerImpTest {
         String[] args = new String[] {"-d", "-i", "out.txt"};
         List<File> testInputList = new ArrayList<>();
 
-        Analyzer analyzer = new AnalyzerImp();
+        Analyzer analyzer = new Analyzer();
 
         assertFalse(analyzer.analyze(args));
     }
@@ -134,7 +134,7 @@ public class AnalyzerImpTest {
         String[] args = new String[] {"-d"};
         List<File> testInputList = new ArrayList<>();
 
-        Analyzer analyzer = new AnalyzerImp();
+        Analyzer analyzer = new Analyzer();
 
         assertFalse(analyzer.analyze(args));
     }
