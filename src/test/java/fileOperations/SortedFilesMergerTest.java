@@ -1,4 +1,4 @@
-package filemerger;
+package fileOperations;
 
 import org.junit.Before;
 import org.junit.Test;

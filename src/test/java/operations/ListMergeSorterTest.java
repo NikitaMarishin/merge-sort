@@ -1,4 +1,4 @@
-package list_merge_sorter;
+package operations;
 
 import operations.ListMergeSorter;
 import org.junit.Test;

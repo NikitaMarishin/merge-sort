@@ -1,4 +1,4 @@
-package analyzer;
+package control;
 
 import control.Analyzer;
 import org.junit.Test;

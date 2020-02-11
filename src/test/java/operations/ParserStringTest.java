@@ -1,4 +1,4 @@
-package parser;
+package operations;
 
 import operations.Parser;
 import operations.ParserString;
