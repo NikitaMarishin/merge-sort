@@ -1,11 +1,11 @@
-package checker;
+package fileOperations;
 
-import parser.Parser;
+import operations.Parser;
 
 import java.io.*;
 import java.util.Comparator;
 
-public class Checker<T>{
+public class FileChecker<T>{
     private boolean notEmpty;
     private boolean typed;
     private boolean ordered;

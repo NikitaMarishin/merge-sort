@@ -1,4 +1,4 @@
-import analyzer.Analyzer;
+import control.Analyzer;
 
 
 public class Application {

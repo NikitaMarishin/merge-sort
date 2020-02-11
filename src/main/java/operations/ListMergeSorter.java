@@ -1,4 +1,4 @@
-package list_merge_sorter;
+package operations;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,17 +1,14 @@
 package filemerger;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import parser.Parser;
-import parser.ParserInt;
-import parser.ParserString;
+import operations.Parser;
+import operations.ParserInt;
+import operations.ParserString;
 
 import java.util.Comparator;
 
-import static org.junit.Assert.*;
-
-public class FileMergerTest {
+public class SortedFilesMergerTest {
     Comparator<Integer> comparatorInt = Integer::compareTo;
     Comparator<String> comparatorString = String::compareTo;
     Parser<Integer> parserInt = new ParserInt();

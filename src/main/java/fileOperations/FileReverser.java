@@ -1,15 +1,13 @@
-package reverser;
+package fileOperations;
 
-import file_divider.FileDivider;
-import temp_files_fabric.TempFilesFabric;
+import control.TempFilesFabric;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
-public class Reverser{
+public class FileReverser {
     private FileDivider fileDivider;
     private TempFilesFabric tempFilesFabric;
     private long sizeLimit;

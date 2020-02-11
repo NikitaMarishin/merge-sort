@@ -1,14 +1,14 @@
-package filemerger;
+package fileOperations;
 
-import parser.Parser;
-import temp_files_fabric.TempFilesFabric;
+import operations.Parser;
+import control.TempFilesFabric;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class FileMerger<T> {
+public class SortedFilesMerger<T> {
     private TempFilesFabric tempFilesFabric = new TempFilesFabric();
     private Comparator<T> comparator;
     private Parser<T> parser;

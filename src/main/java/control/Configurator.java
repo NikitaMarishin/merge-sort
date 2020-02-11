@@ -1,14 +1,12 @@
-package configurator;
+package control;
 
-import checker.Checker;
-import file_divider.FileDivider;
-import file_sorter.FileSorter;
-import filemerger.FileMerger;
-import list_merge_sorter.ListMergeSorter;
-import manager.Manager;
-import parser.Parser;
-import reverser.Reverser;
-import temp_files_fabric.TempFilesFabric;
+import fileOperations.FileChecker;
+import fileOperations.FileDivider;
+import fileOperations.FileSorter;
+import fileOperations.SortedFilesMerger;
+import operations.ListMergeSorter;
+import operations.Parser;
+import fileOperations.FileReverser;
 
 import java.io.File;
 import java.util.Comparator;
@@ -16,14 +14,14 @@ import java.util.Comparator;
 public class Configurator<T> {
     private Comparator<T> comparator;
     private TempFilesFabric tempFilesFabric = new TempFilesFabric();
-    private FileMerger<T> fileMerger = new FileMerger<>();
+    private SortedFilesMerger<T> sortedFilesMerger = new SortedFilesMerger<>();
     private FileDivider fileDivider = new FileDivider();
     private Parser<T> parser;
     private FileSorter<T> fileSorter = new FileSorter<>();
     private ListMergeSorter<T> listMergeSorter = new ListMergeSorter<>();
-    private Checker<T> checker = new Checker<>();
+    private FileChecker<T> fileChecker = new FileChecker<>();
     private Manager<T> manager = new Manager<>();
-    private Reverser reverser = new Reverser();
+    private FileReverser fileReverser = new FileReverser();
 
     public void config(Comparator<T> comparator, Parser<T> parser) {
         this.comparator = comparator;
@@ -31,35 +29,35 @@ public class Configurator<T> {
 
         tempFilesFabric.setTempDirectory(new File("./tmp/"));
 
-        fileMerger.setComparator(comparator);
-        fileMerger.setParser(parser);
-        fileMerger.setTempFilesFabric(tempFilesFabric);
+        sortedFilesMerger.setComparator(comparator);
+        sortedFilesMerger.setParser(parser);
+        sortedFilesMerger.setTempFilesFabric(tempFilesFabric);
 
         fileDivider.setTempFilesFabric(tempFilesFabric);
         fileDivider.setMaxSize(10_000_000);
 
         listMergeSorter.setComparator(comparator);
 
-        checker.setComparator(comparator);
-        checker.setParser(parser);
+        fileChecker.setComparator(comparator);
+        fileChecker.setParser(parser);
 
         fileSorter.setComparator(comparator);
         fileSorter.setFileDivider(fileDivider);
         fileSorter.setParser(parser);
         fileSorter.setTempFilesFabric(tempFilesFabric);
         fileSorter.setListMergeSorter(listMergeSorter);
-        fileSorter.setFileMerger(fileMerger);
+        fileSorter.setSortedFilesMerger(sortedFilesMerger);
         fileSorter.setSizeLimit(100_000_000);
 
-        reverser.setFileDivider(fileDivider);
-        reverser.setTempFilesFabric(tempFilesFabric);
-        reverser.setSizeLimit(100_000_00);
+        fileReverser.setFileDivider(fileDivider);
+        fileReverser.setTempFilesFabric(tempFilesFabric);
+        fileReverser.setSizeLimit(100_000_00);
 
-        manager.setFileMerger(fileMerger);
+        manager.setSortedFilesMerger(sortedFilesMerger);
         manager.setFileSorter(fileSorter);
-        manager.setChecker(checker);
+        manager.setFileChecker(fileChecker);
         manager.setTempFilesFabric(tempFilesFabric);
-        manager.setReverser(reverser);
+        manager.setFileReverser(fileReverser);
 
     }
 
@@ -71,8 +69,8 @@ public class Configurator<T> {
         return tempFilesFabric;
     }
 
-    public FileMerger<T> getFileMerger() {
-        return fileMerger;
+    public SortedFilesMerger<T> getSortedFilesMerger() {
+        return sortedFilesMerger;
     }
 
     public FileDivider getFileDivider() {
@@ -91,15 +89,15 @@ public class Configurator<T> {
         return listMergeSorter;
     }
 
-    public Checker<T> getChecker() {
-        return checker;
+    public FileChecker<T> getFileChecker() {
+        return fileChecker;
     }
 
     public Manager<T> getManager() {
         return manager;
     }
 
-    public Reverser getReverser() {
-        return reverser;
+    public FileReverser getFileReverser() {
+        return fileReverser;
     }
 }

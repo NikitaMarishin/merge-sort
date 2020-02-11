@@ -1,5 +1,6 @@
 package list_merge_sorter;
 
+import operations.ListMergeSorter;
 import org.junit.Test;
 
 import java.util.ArrayList;

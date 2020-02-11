@@ -1,10 +1,8 @@
-package analyzer;
+package control;
 
-import configurator.Configurator;
-import manager.Manager;
-import parser.Parser;
-import parser.ParserInt;
-import parser.ParserString;
+import operations.Parser;
+import operations.ParserInt;
+import operations.ParserString;
 
 import java.io.File;
 import java.util.ArrayList;

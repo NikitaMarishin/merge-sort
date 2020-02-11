@@ -1,5 +1,6 @@
 package temp_files_fabric;
 
+import control.TempFilesFabric;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

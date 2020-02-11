@@ -1,44 +1,44 @@
-package manager;
+package control;
 
-import checker.Checker;
-import file_sorter.FileSorter;
-import filemerger.FileMerger;
-import reverser.Reverser;
-import temp_files_fabric.TempFilesFabric;
+import fileOperations.FileChecker;
+import fileOperations.FileSorter;
+import fileOperations.SortedFilesMerger;
+import fileOperations.FileReverser;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Manager<T> {
 
-    private Checker<T> checker;
+    private FileChecker<T> fileChecker;
     private FileSorter<T> fileSorter;
-    private FileMerger<T> fileMerger;
+    private SortedFilesMerger<T> sortedFilesMerger;
     private List<File> inputFiles;
     private File outFile;
     private TempFilesFabric tempFilesFabric;
-    private Reverser reverser;
+    private FileReverser fileReverser;
 
     public void start() {
 
         inputFiles = filesPreMerge();
 
-        fileMerger.merge(inputFiles, outFile);
+        sortedFilesMerger.merge(inputFiles, outFile);
     }
 
     private List<File> filesPreMerge() {
         List<File> resultList = new ArrayList<>();
         for (File file: inputFiles) {
-            checker.check(file);
-            if (!checker.isOpened() || !checker.isNotEmpty() || !checker.isTyped()) {
+            fileChecker.check(file);
+            if (!fileChecker.isOpened() || !fileChecker.isNotEmpty() || !fileChecker.isTyped()) {
                 continue;
             }
-            if (checker.isSorted() && !checker.isOrdered()) {
+            if (fileChecker.isSorted() && !fileChecker.isOrdered()) {
                 File temp = tempFilesFabric.getNewTempFile();
-                reverser.reverse(file, temp);
+                fileReverser.reverse(file, temp);
                 resultList.add(temp);
             }
-            if (!checker.isSorted()) {
+            if (!fileChecker.isSorted()) {
                 File temp = tempFilesFabric.getNewTempFile();
                 fileSorter.sort(file, temp);
                 resultList.add(temp);
@@ -53,12 +53,12 @@ public class Manager<T> {
         this.fileSorter = fileSorter;
     }
 
-    public void setFileMerger(FileMerger<T> fileMerger) {
-        this.fileMerger = fileMerger;
+    public void setSortedFilesMerger(SortedFilesMerger<T> sortedFilesMerger) {
+        this.sortedFilesMerger = sortedFilesMerger;
     }
 
-    public void setChecker(Checker<T> checker) {
-        this.checker = checker;
+    public void setFileChecker(FileChecker<T> fileChecker) {
+        this.fileChecker = fileChecker;
     }
 
     public void setInputFiles(List<File> inputFiles) {
@@ -73,7 +73,7 @@ public class Manager<T> {
         this.tempFilesFabric = tempFilesFabric;
     }
 
-    public void setReverser(Reverser reverser) {
-        this.reverser = reverser;
+    public void setFileReverser(FileReverser fileReverser) {
+        this.fileReverser = fileReverser;
     }
 }

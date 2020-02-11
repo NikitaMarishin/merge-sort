@@ -1,10 +1,8 @@
-package file_sorter;
+package fileOperations;
 
-import file_divider.FileDivider;
-import filemerger.FileMerger;
-import list_merge_sorter.ListMergeSorter;
-import parser.Parser;
-import temp_files_fabric.TempFilesFabric;
+import operations.ListMergeSorter;
+import operations.Parser;
+import control.TempFilesFabric;
 
 import java.io.*;
 import java.util.*;
@@ -18,7 +16,7 @@ public class FileSorter<T> {
     private TempFilesFabric tempFilesFabric;
     private FileDivider fileDivider;
     private ListMergeSorter<T> listMergeSorter;
-    private FileMerger<T> fileMerger;
+    private SortedFilesMerger<T> sortedFilesMerger;
 
     public void sort(File fileToSort, File sortedFile) {
         if (fileToSort.length() > sizeLimit) {
@@ -37,7 +35,7 @@ public class FileSorter<T> {
                 listDividedSortedFiles.add(dividedSortedFile);
             }
 
-            fileMerger.merge(listDividedSortedFiles, sortedFile);
+            sortedFilesMerger.merge(listDividedSortedFiles, sortedFile);
 
         } else {
             sortFileInMemory(fileToSort, sortedFile);
@@ -94,7 +92,7 @@ public class FileSorter<T> {
         this.listMergeSorter = listMergeSorter;
     }
 
-    public void setFileMerger(FileMerger<T> fileMerger) {
-        this.fileMerger = fileMerger;
+    public void setSortedFilesMerger(SortedFilesMerger<T> sortedFilesMerger) {
+        this.sortedFilesMerger = sortedFilesMerger;
     }
 }

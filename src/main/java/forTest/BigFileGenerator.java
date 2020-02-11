@@ -1,4 +1,4 @@
-package bigfile_generator;
+package forTest;
 
 import java.io.File;
 import java.io.FileNotFoundException;

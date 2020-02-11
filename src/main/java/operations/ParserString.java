@@ -1,4 +1,4 @@
-package parser;
+package operations;
 
 public class ParserString implements Parser<String> {
     @Override

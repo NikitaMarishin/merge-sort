@@ -1,6 +1,6 @@
-package file_divider;
+package fileOperations;
 
-import temp_files_fabric.TempFilesFabric;
+import control.TempFilesFabric;
 
 import java.io.*;
 import java.util.List;

@@ -1,5 +1,7 @@
 package parser;
 
+import operations.Parser;
+import operations.ParserInt;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
